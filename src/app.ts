@@ -6,6 +6,7 @@ import { Server } from "http";
 import MongoDatabase from "./db/mongo.db";
 import mongoose from "mongoose";
 import indexRoute from "./routes/index.route";
+import { seedApiKey } from "./utils/data.util";
 
 const app: Application = express();
 
@@ -18,6 +19,7 @@ app.use(express.urlencoded({
 
 // Config db
 new MongoDatabase(mongoose);
+seedApiKey();
 
 // Config route
 app.use(`/api/v${config.app.apiVersion}`, indexRoute);

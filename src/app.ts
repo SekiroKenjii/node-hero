@@ -1,8 +1,10 @@
 import compression from "compression";
-import configs from './configs/environment.config';
+import config from './configs/environment.config';
 import express, { Application, ErrorRequestHandler } from "express";
 import helmet from "helmet";
 import { Server } from "http";
+import MongoDatabase from "./db/mongo.db";
+import mongoose from "mongoose";
 
 const app: Application = express();
 
@@ -14,6 +16,7 @@ app.use(express.urlencoded({
 }));
 
 // Config db
+new MongoDatabase(mongoose);
 
 // Config route
 
@@ -24,7 +27,7 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 
 app.use(errorHandler);
 
-const PORT: number = configs.app.port;
+const PORT: number = config.app.port;
 
 const server: Server = app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);

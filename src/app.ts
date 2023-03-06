@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { Server } from "http";
 import MongoDatabase from "./db/mongo.db";
 import mongoose from "mongoose";
+import indexRoute from "./routes/index.route";
 
 const app: Application = express();
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded({
 new MongoDatabase(mongoose);
 
 // Config route
+app.use(`/api/v${config.app.apiVersion}`, indexRoute);
 
 // Handle Error
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {

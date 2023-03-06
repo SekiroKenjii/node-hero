@@ -1,6 +1,6 @@
 export interface AppConfig {
     port: number;
-    apiVersion?: string;
+    apiVersion?: number;
 }
 
 export interface DbConfig {

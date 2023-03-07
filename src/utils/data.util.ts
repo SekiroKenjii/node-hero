@@ -1,13 +1,13 @@
 import crypto from 'node:crypto'
-import apiKeyModel from "../models/apiKey.model";
+import ApiKeyModel from "../models/apiKey.model";
 
 async function seedApiKey(): Promise<void> {
     try {
-        const numberApiKey = await apiKeyModel.count();
+        const numberApiKey = await ApiKeyModel.count();
 
         if (numberApiKey > 0) return;
 
-        await apiKeyModel.create({ key: crypto.randomBytes(64).toString('hex'), permissions: ['0000'] });
+        await ApiKeyModel.create({ key: crypto.randomBytes(64).toString('hex'), permissions: ['0000'] });
 
         console.log('API Key seeded!');
     } catch(error: any) {

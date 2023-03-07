@@ -1,32 +1,23 @@
-import { Mongoose } from 'mongoose';
+import { MongoClient, MongoClientOptions, Db } from 'mongodb';
 import config from '../configs/environment.config'
 import { DbConfig } from '../interfaces/config.interface'
-import { Database } from '../interfaces/database.interface';
 
 const dbConfig: DbConfig = config.db;
 const CONNECTION_STRING: string = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`;
 
-class MongoDatabase implements Database<Mongoose> {
-    instance: Mongoose;
-
-    constructor(instance: Mongoose) {
-        this.instance = instance;
-    }
-
-    connect(): void {
-        if (process.env.NODE_ENV === 'dev') {
-            this.instance.set('debug', true);
-            this.instance.set('debug', { color: true });
-        }
-
-        this.instance.connect(CONNECTION_STRING, {
+async function connectMongoDb(): Promise<Db> {
+    try {
+        const options: MongoClientOptions = {
             maxPoolSize: 50
-        }).then(_ => {
-            console.log('Connected Mongodb Successfully!');
-        }).catch(error => {
-            console.log(`Failed to connect to MongoDb!`, error);
-        });
+        };
+        const client = await MongoClient.connect(CONNECTION_STRING, options);
+        console.log('Connected to MongoDB!');
+
+        return client.db();
+    } catch(error) {
+        console.log('Failed to Connect to MongoDB:', error);
+        throw new Error('Failed to Connect to MongoDB!');
     }
 }
 
-export default MongoDatabase;
+export default connectMongoDb;

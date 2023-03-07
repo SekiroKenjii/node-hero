@@ -3,8 +3,7 @@ import config from './configs/environment.config';
 import express, { Application, ErrorRequestHandler } from "express";
 import helmet from "helmet";
 import { Server } from "http";
-import MongoDatabase from "./db/mongo.db";
-import mongoose from "mongoose";
+import mongoDb from "./db/mongo.db";
 import indexRoute from "./routes/index.route";
 import { seedApiKey } from "./utils/data.util";
 
@@ -18,7 +17,7 @@ app.use(express.urlencoded({
 }));
 
 // Config db
-new MongoDatabase(mongoose);
+mongoDb();
 seedApiKey();
 
 // Config route

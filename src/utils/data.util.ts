@@ -1,7 +1,7 @@
 import crypto from 'node:crypto'
 import ApiKeyModel from "../models/apiKey.model";
 
-async function seedApiKey(): Promise<void> {
+export async function seedApiKey(): Promise<void> {
     try {
         const numberApiKey = await ApiKeyModel.count();
 
@@ -14,5 +14,3 @@ async function seedApiKey(): Promise<void> {
         console.log('Failed to seed API Key:', error);
     }
 }
-
-export { seedApiKey };

@@ -1,19 +1,18 @@
-import { MongoClient, MongoClientOptions, Db } from 'mongodb';
+import mongoose from 'mongoose';
 import config from '../configs/environment.config'
 import { DbConfig } from '../interfaces/config.interface'
 
 const dbConfig: DbConfig = config.db;
 const CONNECTION_STRING: string = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`;
 
-async function connectMongoDb(): Promise<Db> {
+async function connectMongoDb(): Promise<void> {
     try {
-        const options: MongoClientOptions = {
-            maxPoolSize: 50
-        };
-        const client = await MongoClient.connect(CONNECTION_STRING, options);
-        console.log('Connected to MongoDB!');
+        await mongoose.connect(CONNECTION_STRING, {
+            maxPoolSize: 100,
+            connectTimeoutMS: 30000
+        });
 
-        return client.db();
+        console.log('Connected to MongoDB!');
     } catch(error) {
         console.log('Failed to Connect to MongoDB:', error);
         throw new Error('Failed to Connect to MongoDB!');

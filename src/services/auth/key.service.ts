@@ -1,14 +1,20 @@
 import crypto from 'node:crypto';
-import { ObjectId } from 'mongodb';
-import KeyModel from '../../models/key.model';
+import { inject, injectable } from 'inversify';
+import { ObjectId } from 'mongoose';
 import { KeyPair } from '../../interfaces/pair.interface';
+import { IKeyService } from '../../interfaces/services/key.service.interface';
+import { Locator } from '../../constants/app.constant';
+import { IKeyRepository } from '../../interfaces/repositories/catalog/key.repository.interface';
 
-class KeyService {
-    static async generateUserKeyPair(userId: ObjectId): Promise<KeyPair> {
+@injectable()
+class KeyService implements IKeyService {
+    constructor(@inject(Locator.KeyRepository) readonly keyRepository: IKeyRepository) {}
+
+    async generateUserKeyPair(userId: ObjectId): Promise<KeyPair> {
         const publicKeyString = await crypto.randomBytes(64).toString('hex');
         const privateKeyString = await crypto.randomBytes(64).toString('hex');
 
-        const key = await KeyModel.create({
+        const key = await this.keyRepository.create({
             user: userId,
             publicKey: publicKeyString,
             privateKey: privateKeyString
@@ -24,7 +30,7 @@ class KeyService {
         };
     }
 
-    static async generateUserKeyPairAlt(userId: ObjectId): Promise<KeyPair> {
+    async generateUserKeyPairAlt(userId: ObjectId): Promise<KeyPair> {
         const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
             modulusLength: 4096,
             publicKeyEncoding: {
@@ -38,7 +44,7 @@ class KeyService {
         });
 
         try {
-            const createdKey = await KeyModel.create({
+            const createdKey = await this.keyRepository.create({
                 user: userId,
                 publicKey: publicKey,
                 privateKey: privateKey

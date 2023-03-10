@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { Key } from "../interfaces/document.interface";
+import { Key } from "../interfaces/model.interface";
 
 const DOCUMENT_NAME: string = 'Key';
 const COLLECTIONS_NAME: string = 'Keys';

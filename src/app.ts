@@ -1,37 +1,57 @@
 import compression from "compression";
 import config from './configs/environment.config';
+import 'reflect-metadata';
 import express, { Application, ErrorRequestHandler } from "express";
 import helmet from "helmet";
-import { Server } from "http";
 import mongoDb from "./db/mongo.db";
-import indexRoute from "./routes/index.route";
 import { seedApiKey } from "./utils/data.util";
-
-const app: Application = express();
-
-app.use(helmet());
-app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}));
+import { InversifyExpressServer } from "inversify-express-utils";
+import container from "./containers/config.container";
+import { Locator } from "./constants/app.constant";
+import { IndexRouter } from "./routers/index.route";
+import ApiResult from "./wrappers/apiResult";
 
 // Config db
 mongoDb();
 seedApiKey();
 
-// Config route
-app.use(`/api/v${config.app.apiVersion}`, indexRoute);
+const server: InversifyExpressServer = new InversifyExpressServer(container, null, {
+    rootPath: `/api/v${config.app.apiVersion}`
+});
 
-// Handle Error
-const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-    res.status(err.status || 500).send('Oops, An unhandled error has occurred!');
-}
+server.setConfig((app: Application) => {
+    // Config Application
+    app.use(helmet());
+    app.use(compression());
+    app.use(express.json());
+    app.use(express.urlencoded({
+        extended: true
+    }));
 
-app.use(errorHandler);
+    // Config route
+    app.use(
+        `/api/v${config.app.apiVersion}`,
+        container.get<IndexRouter>(Locator.IndexRouter).getRouter()
+    );
+});
+
+server.setErrorConfig((app: Application) => {
+    const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+        res.status(err.status || 500)
+           .send(ApiResult.fail<string>(
+                err.status || 500,
+                'Internal Server Error!',
+                ['Oops, An unhandled error has occurred!'])
+            );
+    }
+
+    app.use(errorHandler);
+});
+
+const app: Application = server.build();
 
 const PORT: number = config.app.port;
 
-const server: Server = app.listen(PORT, () => {
+app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
 });

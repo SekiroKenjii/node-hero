@@ -1,60 +1,55 @@
-import { Collection, Db, ObjectId } from "mongodb";
-import { Reader, Writer } from "../interfaces/repository.interface";
+import { injectable } from "inversify";
+import { FilterQuery, Model } from "mongoose";
+import { BaseModel } from "../interfaces/model.interface";
+import { IBaseRepository } from "../interfaces/repositories/base.repository.interface";
 
-abstract class BaseRepository<T> implements Reader<T>, Writer<T> {
-    public readonly collection: Collection;
+@injectable()
+abstract class BaseRepository<T extends BaseModel> implements IBaseRepository<T> {
+    protected readonly model: Model<T>;
 
-    constructor(
-        public readonly db: Db,
-        public readonly tableName: string
-    ) {
-        this.collection = this.db.collection(this.tableName);
+    constructor(model: Model<T>) {
+        this.model = model;
     }
 
-    public get queryBuilder(): Collection {
-        return this.collection;
+    public get queryBuilder(): Model<T> {
+        return this.model;
     }
 
-
-    async find(): Promise<T[]> {
-        const result = await this.collection.find().toArray();
-
-        return result as T[];
+    async findAll(): Promise<T[]> {
+        return await this.model.find().exec();
     }
 
-    async findOne(id: string): Promise<T> {
-        const result = await this.collection.findOne({ _id: new ObjectId(id) });
-        return result as T;
+    async findById(id: string): Promise<T | null> {
+        return await this.model.findById(id).exec();
     }
 
-    async create(item: Omit<T, 'id'>): Promise<T> {
-        const result = await this.collection.insertOne(item);
-        const insertedId = result.insertedId;
-        const insertedItem = await this.collection.findOne({ _id: insertedId });
-
-        return insertedItem as T;
+    async find(filter: FilterQuery<T>): Promise<T[]> {
+        return await this.model.find(filter).exec();
     }
 
-    async createMany(items: Omit<T, 'id'>[]): Promise<T[]> {
-        const result = await this.collection.insertMany(items);
-        const insertedIds = result.insertedIds as ObjectId[];
-        const insertedItems = await this.collection.find({
-            _id: { $in: Object.values(insertedIds) }
-        }).toArray();
-
-        return insertedItems as T[];
+    async create(entity: Partial<T>): Promise<T> {
+        return await this.model.create(entity);
     }
 
-    async update(id: string, item: Partial<T>): Promise<boolean> {
-        const result = await this.collection.replaceOne({ _id: new ObjectId(id) }, item);
+    async createMany(entities: T[]): Promise<T[]> {
+        return await this.model.create(entities);
+    }
 
-        return result.modifiedCount > 0;
+    async update(id: string, entity: Partial<T>): Promise<T | null> {
+        const existing = await this.model.findById(id).exec();
+
+        if (!existing) {
+            return null;
+        }
+
+        Object.assign(existing, entity);
+        return existing.save();
     }
 
     async delete(id: string): Promise<boolean> {
-        const result = await this.collection.deleteOne({ _id: new ObjectId(id) });
+        const result = await this.model.deleteOne({ _id: id }).exec();
 
-        return result.deletedCount > 0;
+        return result.deletedCount === 1;
     }
 }
 

@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { User } from "../interfaces/document.interface";
+import { User } from "../interfaces/model.interface";
 
 const DOCUMENT_NAME: string = 'User';
 const COLLECTIONS_NAME: string = 'Users';

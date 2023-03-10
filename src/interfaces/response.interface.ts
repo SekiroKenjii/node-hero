@@ -1,7 +1,7 @@
 import { TokenPair } from "./pair.interface";
 
 export interface UserResponse {
-    _id: string;
+    _id?: string;
     email: string;
     fullname: string;
 }

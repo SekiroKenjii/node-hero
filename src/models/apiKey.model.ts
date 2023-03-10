@@ -1,5 +1,5 @@
 import { model, Schema } from "mongoose";
-import { ApiKey } from "../interfaces/document.interface";
+import { ApiKey } from "../interfaces/model.interface";
 
 const DOCUMENT_NAME: string = 'ApiKey';
 const COLLECTIONS_NAME: string = 'ApiKeys';

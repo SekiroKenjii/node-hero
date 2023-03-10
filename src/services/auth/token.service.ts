@@ -1,9 +1,12 @@
+import { injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
 import { TokenPair } from "../../interfaces/pair.interface";
+import { ITokenService } from '../../interfaces/services/token.service.interface';
 import { Token } from '../../interfaces/token.interface';
 
-class TokenService {
-    static async generateJWTToken(request: Token): Promise<TokenPair> {
+@injectable()
+class TokenService implements ITokenService {
+    async generateJWTToken(request: Token): Promise<TokenPair> {
         const { payload, publicKey, privateKey } = request;
 
         try {
@@ -19,7 +22,7 @@ class TokenService {
         }
     }
 
-    static makeTokenPair(accessToken: string, refreshToken: string): TokenPair {
+    makeTokenPair(accessToken: string, refreshToken: string): TokenPair {
         if (!accessToken || !refreshToken) {
             throw new Error('Failed to generate token pair!');
         }

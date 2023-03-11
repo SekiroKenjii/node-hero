@@ -1,10 +1,11 @@
-import { Model } from 'mongoose';
+import bcrypt from "bcrypt";
 import crypto from 'node:crypto'
+import { Model } from 'mongoose';
 import { Locator } from '../constants/app.constant';
-import container from '../containers/config.container';
-import { ApiKey } from '../interfaces/model.interface';
+import container from '../core/containers/config.container';
+import { ApiKey } from '../core/interfaces/contracts/model.interface';
 
-const ApiKeyModel = container.get<Model<ApiKey>>(Locator.ApiKeyModel);
+const ApiKeyModel: Model<ApiKey> = container.get<Model<ApiKey>>(Locator.ApiKeyModel);
 
 export async function seedApiKey(): Promise<void> {
     try {
@@ -21,4 +22,8 @@ export async function seedApiKey(): Promise<void> {
     } catch(error: any) {
         console.log('Failed to seed API Key:', error);
     }
+}
+
+export async function hashPassword(password: string): Promise<string> {
+    return await bcrypt.hash(password, 10);
 }

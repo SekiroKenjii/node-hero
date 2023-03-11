@@ -1,15 +1,15 @@
-import compression from "compression";
-import config from './configs/environment.config';
 import 'reflect-metadata';
-import express, { Application, ErrorRequestHandler } from "express";
-import helmet from "helmet";
+import config from './configs/environment.config';
 import mongoDb from "./db/mongo.db";
+import express, { Application, ErrorRequestHandler } from "express";
+import compression from "compression";
+import helmet from "helmet";
 import { seedApiKey } from "./utils/data.util";
 import { InversifyExpressServer } from "inversify-express-utils";
-import container from "./containers/config.container";
+import container from "./core/containers/config.container";
 import { Locator } from "./constants/app.constant";
-import { IndexRouter } from "./routers/index.route";
-import ApiResult from "./wrappers/apiResult";
+import { IndexRouter } from "./core/routers/index.route";
+import { ApiResult } from "./wrappers/api-result";
 
 // Config db
 mongoDb();
@@ -38,11 +38,10 @@ server.setConfig((app: Application) => {
 server.setErrorConfig((app: Application) => {
     const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
         res.status(err.status || 500)
-           .send(ApiResult.fail<string>(
-                err.status || 500,
-                'Internal Server Error!',
-                ['Oops, An unhandled error has occurred!'])
-            );
+           .send(ApiResult.fail<string>({
+                statusCode: err.status || 500,
+                message: err.message
+            }));
     }
 
     app.use(errorHandler);

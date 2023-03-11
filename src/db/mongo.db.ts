@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import config from '../configs/environment.config'
-import { DbConfig } from '../interfaces/config.interface'
+import { DbConfig } from '../core/interfaces/contracts/config.interface'
 
 const dbConfig: DbConfig = config.db;
 const CONNECTION_STRING: string = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`;

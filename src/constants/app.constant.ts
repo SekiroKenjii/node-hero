@@ -11,6 +11,7 @@ export const Header = {
 
 export const Locator = {
     // Repository
+    BaseRepository: Symbol.for('BaseRepository'),
     ApiKeyRepository: Symbol.for('ApiKeyRepository'),
     KeyRepository: Symbol.for('KeyRepository'),
     UserRepository: Symbol.for('UserRepository'),

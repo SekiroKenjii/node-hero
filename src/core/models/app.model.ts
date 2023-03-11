@@ -5,6 +5,6 @@ import { apiKeySchema } from "./schemas/api-key.schema";
 import { keySchema } from "./schemas/key.schema";
 import { userSchema } from "./schemas/user.schema";
 
-export const ApiKeyModel: Model<ApiKey> = model<ApiKey>(DocumentName.User, apiKeySchema);
-export const KeyModel: Model<Key> = model<Key>(DocumentName.User, keySchema);
+export const ApiKeyModel: Model<ApiKey> = model<ApiKey>(DocumentName.ApiKey, apiKeySchema);
+export const KeyModel: Model<Key> = model<Key>(DocumentName.Key, keySchema);
 export const UserModel: Model<User> = model<User>(DocumentName.User, userSchema);

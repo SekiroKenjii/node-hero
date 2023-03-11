@@ -9,15 +9,15 @@ import { InversifyExpressServer } from "inversify-express-utils";
 import container from "./core/containers/config.container";
 import { Locator } from "./constants/app.constant";
 import { IndexRouter } from "./core/routers/index.route";
+import { Request, Response, NextFunction } from 'express';
 import { ApiResult } from "./wrappers/api-result";
+import { NotFoundException } from './core/exceptions/app.exception';
 
 // Config db
 mongoDb();
 seedApiKey();
 
-const server: InversifyExpressServer = new InversifyExpressServer(container, null, {
-    rootPath: `/api/v${config.app.apiVersion}`
-});
+const server: InversifyExpressServer = new InversifyExpressServer(container);
 
 server.setConfig((app: Application) => {
     // Config Application
@@ -36,12 +36,27 @@ server.setConfig((app: Application) => {
 });
 
 server.setErrorConfig((app: Application) => {
+    // Handle Route NotFound
+    app.use((req: Request, res: Response, next: NextFunction) => {
+        const notFound: NotFoundException = new NotFoundException({
+            message: 'Not Found!',
+            errors: ['Route is not defined!']
+        });
+
+        return res.status(notFound.statusCode).send(ApiResult.fail<string>(notFound.statusCode, {
+            message: notFound.message,
+            errors: notFound.errors
+        }));
+    });
+
+    // Handle Unhandled Error
     const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-        res.status(err.status || 500)
-           .send(ApiResult.fail<string>({
-                statusCode: err.status || 500,
-                message: err.message
-            }));
+        const statusCode = err.statusCode || 500;
+
+        res.status(statusCode).send(ApiResult.fail<string>(statusCode, {
+            message: err.message || 'Oops, An unhandled error has occurred!',
+            errors: !err.errors ? ['Internal Server Error!'] : err.errors
+        }));
     }
 
     app.use(errorHandler);

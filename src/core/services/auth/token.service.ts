@@ -9,21 +9,17 @@ export class TokenService implements ITokenService {
     async generateJWTToken(request: Token): Promise<TokenPair | null> {
         const { payload, publicKey, privateKey } = request;
 
-        try {
-            const accessToken = await jwt.sign(payload, publicKey, { expiresIn: '2 days' });
-            const refreshToken = await jwt.sign(payload, privateKey, { expiresIn: '7 days' });
+        const accessToken = await jwt.sign(payload, publicKey, { expiresIn: '2 days' });
+        const refreshToken = await jwt.sign(payload, privateKey, { expiresIn: '7 days' });
 
-            const verifyAccessToken = this.verifyAccessToken(accessToken, publicKey);
+        const verifyAccessToken = this.verifyAccessToken(accessToken, publicKey);
 
-            if (!verifyAccessToken) {
-                return null;
-            }
-
-            return this.makeTokenPair(accessToken, refreshToken);
-        } catch (error) {
-            console.log('Failed to generate token:', error);
-            throw new Error('Oops, An unhandled error has occurred!');
+        if (!verifyAccessToken) {
+            console.log('Failed to generate token.');
+            return null;
         }
+
+        return this.makeTokenPair(accessToken, refreshToken);
     }
 
     private verifyAccessToken(accessToken: string, publicKey: string): boolean {

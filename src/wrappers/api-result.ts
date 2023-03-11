@@ -1,5 +1,4 @@
 type ResultParams = {
-    statusCode: number;
     message: string;
 }
 
@@ -29,19 +28,19 @@ export class ApiResult<T> {
         this.errors = errors;
     }
 
-    static fail<T>(errorParams: ErrorParams) {
-        return new ApiResult<T>(false, errorParams.statusCode, errorParams.message, null, errorParams.errors);
+    static fail<T>(statusCode: number, errorParams: ErrorParams) {
+        return new ApiResult<T>(false, statusCode, errorParams.message, null, errorParams.errors);
     }
 
-    static async failAsync<T>(errorParams: ErrorParams) {
-        return await this.fail<T>(errorParams);
+    static async failAsync<T>(statusCode: number, errorParams: ErrorParams) {
+        return await this.fail<T>(statusCode, errorParams);
     }
 
-    static success<T>(dataParams: DataParams<T>) {
-        return new ApiResult<T>(true, dataParams.statusCode, dataParams.message, dataParams.data);
+    static success<T>(statusCode: number, dataParams: DataParams<T>) {
+        return new ApiResult<T>(true, statusCode, dataParams.message, dataParams.data);
     }
 
-    static async successAsync<T>(dataParams: DataParams<T>) {
-        return await this.success<T>(dataParams);
+    static async successAsync<T>(statusCode: number, dataParams: DataParams<T>) {
+        return await this.success<T>(statusCode, dataParams);
     }
 }

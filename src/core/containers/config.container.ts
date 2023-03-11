@@ -1,4 +1,4 @@
-import { Container } from "inversify";
+import { Container, ContainerModule } from "inversify";
 import { modelContainerModule } from "./modules/model.module";
 import { repositoryContainerModule } from "./modules/repository.module";
 import { serviceContainerModule } from "./modules/service.module";

@@ -11,26 +11,39 @@ export const Header = {
 
 export const Locator = {
     // Repository
-    BaseRepository: Symbol.for('BaseRepository'),
-    ApiKeyRepository: Symbol.for('ApiKeyRepository'),
-    KeyRepository: Symbol.for('KeyRepository'),
-    UserRepository: Symbol.for('UserRepository'),
+    BaseRepository: Symbol('BaseRepository'),
+    ApiKeyRepository: Symbol('ApiKeyRepository'),
+    KeyRepository: Symbol('KeyRepository'),
+    UserRepository: Symbol('UserRepository'),
 
     // Service
-    AuthService: Symbol.for('AuthService'),
-    KeyService: Symbol.for('KeyService'),
-    TokenService: Symbol.for('TokenService'),
+    AuthService: Symbol('AuthService'),
+    KeyService: Symbol('KeyService'),
+    TokenService: Symbol('TokenService'),
 
     // Model
-    ApiKeyModel: Symbol.for('ApiKeyModel'),
-    UserModel: Symbol.for('UserModel'),
-    KeyModel: Symbol.for('KeyModel'),
+    ApiKeyModel: Symbol('ApiKeyModel'),
+    UserModel: Symbol('UserModel'),
+    KeyModel: Symbol('KeyModel'),
 
     // Controller
-    BaseController: Symbol.for('BaseController'),
-    AuthController: Symbol.for('AuthController'),
+    ExampleController: Symbol('ExampleController'),
+    AuthController: Symbol('AuthController'),
 
     // Router
-    IndexRouter: Symbol.for('IndexRouter'),
-    AuthRouter: Symbol.for('AuthRouter')
+    IndexRouter: Symbol('IndexRouter'),
+    AuthRouter: Symbol('AuthRouter')
+}
+
+export const StatusCode = {
+    Ok: 200,
+    Created: 201,
+    NoContent: 204,
+    BadRequest: 400,
+    Unauthorized: 401,
+    Forbidden: 403,
+    NotFound: 404,
+    Conflict: 409,
+    Unprocessable: 422,
+    InternalServerError: 500
 }

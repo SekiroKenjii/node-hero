@@ -27,6 +27,7 @@ export const Locator = {
     KeyModel: Symbol('KeyModel'),
 
     // Controller
+    BaseController: Symbol('BaseController'),
     ExampleController: Symbol('ExampleController'),
     AuthController: Symbol('AuthController'),
 

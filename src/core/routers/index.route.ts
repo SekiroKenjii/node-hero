@@ -14,7 +14,6 @@ export class IndexRouter {
         @inject(Locator.ExampleController) private readonly _exampleController: ExampleController
     ) {
         this._router = Router();
-
         this.initializeRoutes();
     }
 

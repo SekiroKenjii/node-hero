@@ -8,9 +8,10 @@ import { AuthController } from '../controllers/v1/auth.controller';
 export class AuthRouter {
     private readonly _router: Router;
 
-    constructor(@inject(Locator.AuthController) private readonly _authController: AuthController) {
+    constructor(
+        @inject(Locator.AuthController) private readonly _authController: AuthController
+    ) {
         this._router = Router();
-
         this.initializeRoutes();
     }
 

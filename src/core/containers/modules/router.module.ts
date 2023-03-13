@@ -1,7 +1,6 @@
 import { ContainerModule } from "inversify";
-import { Locator } from "../../../constants/app.constant";
-import { AuthRouter } from "../../routers/auth.router";
-import { IndexRouter } from "../../routers/index.route";
+import { Locator } from "../../../constants";
+import { AuthRouter, IndexRouter } from "../../routers";
 
 export const routerContainerModule: ContainerModule = new ContainerModule((bind) => {
     bind<IndexRouter>(Locator.IndexRouter).to(IndexRouter).inSingletonScope();

@@ -7,11 +7,11 @@ import helmet from "helmet";
 import { seedApiKey } from "./utils/data.util";
 import { InversifyExpressServer } from "inversify-express-utils";
 import container from "./core/containers/config.container";
-import { Locator } from "./constants/app.constant";
-import { IndexRouter } from "./core/routers/index.route";
+import { Locator } from "./constants";
+import { IndexRouter } from "./core/routers";
 import { Request, Response, NextFunction } from 'express';
-import { ApiResult } from "./wrappers/api-result";
-import { NotFoundException } from './core/exceptions/app.exception';
+import { ApiResult } from "./wrappers";
+import { NotFoundException } from './core/exceptions';
 
 // Config db
 mongoDb();

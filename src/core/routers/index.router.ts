@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import { inject, injectable } from 'inversify';
-import { Locator } from '../../constants/app.constant';
-import { exceptionHandler } from '../../middlewares/exception-handler.middleware';
+import { Locator } from '../../constants';
+import { exceptionHandler } from '../../middlewares';
 import { ExampleController } from '../controllers/example.controller';
 import { AuthRouter } from './auth.router';
 

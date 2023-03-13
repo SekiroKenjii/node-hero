@@ -1,8 +1,7 @@
 import { injectable } from 'inversify';
 import jwt from 'jsonwebtoken';
-import { TokenPair } from "../../interfaces/contracts/pair.interface";
-import { ITokenService } from '../../interfaces/services/token.service.interface';
-import { Token } from '../../interfaces/contracts/token.interface';
+import { Token, TokenPair } from "../../interfaces/contracts";
+import { ITokenService } from '../../interfaces/services';
 
 @injectable()
 export class TokenService implements ITokenService {

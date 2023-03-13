@@ -1,9 +1,11 @@
-import { Container, ContainerModule } from "inversify";
-import { modelContainerModule } from "./modules/model.module";
-import { repositoryContainerModule } from "./modules/repository.module";
-import { serviceContainerModule } from "./modules/service.module";
-import { controllerContainerModule } from "./modules/controller.module";
-import { routerContainerModule } from "./modules/router.module";
+import { Container } from "inversify";
+import {
+    modelContainerModule,
+    repositoryContainerModule,
+    serviceContainerModule,
+    controllerContainerModule,
+    routerContainerModule
+} from "./modules";
 
 const appContainer: Container = new Container();
 

@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
-import { CollectionName } from "../../../constants/db.constant";
-import { User } from "../../interfaces/contracts/model.interface";
+import { CollectionName } from "../../../constants";
+import { User } from "../../interfaces/contracts";
 
 export const userSchema: Schema<User> = new Schema<User>({
     fullname: {

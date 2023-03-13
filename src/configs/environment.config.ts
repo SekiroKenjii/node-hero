@@ -1,5 +1,5 @@
 import { config } from 'dotenv';
-import { EnvConfig } from "../core/interfaces/contracts/config.interface";
+import { EnvConfig } from "../core/interfaces/contracts";
 
 type ProcessEnv = NodeJS.ProcessEnv;
 

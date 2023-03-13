@@ -1,8 +1,8 @@
 import { BaseRepository } from "./base.repository";
-import { ApiKey } from '../interfaces/contracts/model.interface';
+import { ApiKey } from '../interfaces/contracts';
 import { inject, injectable } from "inversify";
-import { IApiKeyRepository } from "../interfaces/repositories/api-key.repository";
-import { Locator } from "../../constants/app.constant";
+import { IApiKeyRepository } from "../interfaces/repositories";
+import { Locator } from "../../constants";
 import { Model } from "mongoose";
 
 @injectable()

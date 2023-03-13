@@ -1,8 +1,16 @@
 import { ContainerModule } from "inversify";
 import { Model } from "mongoose";
-import { User, Key, ApiKey } from "../../interfaces/contracts/model.interface";
-import { ApiKeyModel, KeyModel, UserModel } from "../../models/app.model";
-import { Locator } from "../../../constants/app.constant";
+import {
+    User,
+    Key,
+    ApiKey
+} from "../../interfaces/contracts";
+import {
+    ApiKeyModel,
+    KeyModel,
+    UserModel
+} from "../../models";
+import { Locator } from "../../../constants";
 
 export const modelContainerModule: ContainerModule = new ContainerModule((bind) => {
     bind<Model<User>>(Locator.UserModel).toConstantValue(UserModel);

@@ -1,6 +1,6 @@
 import { Response } from 'express';
 import { controller } from 'inversify-express-utils';
-import { ApiResult } from '../../wrappers/api-result';
+import { ApiResult } from '../../wrappers';
 
 @controller('base')
 export class BaseController {

@@ -1,14 +1,14 @@
 import crypto from 'node:crypto';
 import { inject, injectable } from 'inversify';
 import { ObjectId } from 'mongoose';
-import { KeyPair } from '../../interfaces/contracts/pair.interface';
-import { IKeyService } from '../../interfaces/services/key.service.interface';
-import { Locator } from '../../../constants/app.constant';
-import { IKeyRepository } from '../../interfaces/repositories/key.repository';
+import { KeyPair } from '../../interfaces/contracts';
+import { IKeyService } from '../../interfaces/services';
+import { Locator } from '../../../constants';
+import { IKeyRepository } from '../../interfaces/repositories';
 
 @injectable()
 export class KeyService implements IKeyService {
-    constructor(@inject(Locator.KeyRepository) readonly _keyRepository: IKeyRepository) {}
+    constructor(@inject(Locator.KeyRepository) readonly _keyRepository: IKeyRepository) { }
 
     async generateUserKeyPair(userId: ObjectId): Promise<KeyPair | null> {
         const publicKeyString = await crypto.randomBytes(64).toString('hex');

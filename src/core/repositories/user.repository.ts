@@ -1,9 +1,9 @@
 import { BaseRepository } from "./base.repository";
-import { User } from '../interfaces/contracts/model.interface';
-import { IUserRepository } from "../interfaces/repositories/user.repository.interface";
+import { User } from '../interfaces/contracts';
+import { IUserRepository } from "../interfaces/repositories";
 import { inject, injectable } from "inversify";
 import { Model } from "mongoose";
-import { Locator } from "../../constants/app.constant";
+import { Locator } from "../../constants";
 
 @injectable()
 export class UserRepository extends BaseRepository<User> implements IUserRepository {

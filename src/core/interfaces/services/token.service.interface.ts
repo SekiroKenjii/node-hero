@@ -1,5 +1,4 @@
-import { TokenPair } from "../contracts/pair.interface";
-import { Token } from "../contracts/token.interface";
+import { TokenPair, Token } from "../contracts";
 
 export interface ITokenService {
     generateJWTToken(request: Token): Promise<TokenPair | null>;

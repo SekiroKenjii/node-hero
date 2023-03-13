@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { FilterQuery, Model } from "mongoose";
-import { BaseModel } from "../interfaces/contracts/model.interface";
-import { IRepository } from "../interfaces/repositories/repository.interface";
+import { BaseModel } from "../interfaces/contracts";
+import { IRepository } from "../interfaces/repositories";
 
 @injectable()
 export class BaseRepository<T extends BaseModel> implements IRepository<T> {

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { injectable } from "inversify";
-import { StatusCode } from "../../constants/app.constant";
-import { ApiResult } from "../../wrappers/api-result";
+import { StatusCode } from "../../constants";
+import { ApiResult } from "../../wrappers";
 import { BaseController } from "./base.controller";
 
 @injectable()

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import config from '../configs/environment.config'
-import { DbConfig } from '../core/interfaces/contracts/config.interface'
+import { DbConfig } from '../core/interfaces/contracts'
 
 const dbConfig: DbConfig = config.db;
 const CONNECTION_STRING: string = `mongodb://${dbConfig.host}:${dbConfig.port}/${dbConfig.name}`;
@@ -13,7 +13,7 @@ async function connectMongoDb(): Promise<void> {
         });
 
         console.log('Connected to MongoDB!');
-    } catch(error) {
+    } catch (error) {
         console.log('Failed to Connect to MongoDB:', error);
         throw new Error('Failed to Connect to MongoDB!');
     }

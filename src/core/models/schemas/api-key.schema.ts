@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
-import { CollectionName } from "../../../constants/db.constant";
-import { ApiKey } from "../../interfaces/contracts/model.interface";
+import { CollectionName } from "../../../constants";
+import { ApiKey } from "../../interfaces/contracts";
 
 export const apiKeySchema: Schema<ApiKey> = new Schema<ApiKey>({
     key: {

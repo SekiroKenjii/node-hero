@@ -7,7 +7,9 @@ import { Model } from "mongoose";
 
 @injectable()
 export class KeyRepository extends BaseRepository<Key> implements IKeyRepository {
-    constructor(@inject(Locator.KeyModel) readonly model: Model<Key>) {
-        super(model);
+    constructor(
+        @inject(Locator.KeyModel) private readonly _keyModel: Model<Key>
+    ) {
+        super(_keyModel);
     }
 }

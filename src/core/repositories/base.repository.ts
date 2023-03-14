@@ -5,14 +5,10 @@ import { IRepository } from "../interfaces/repositories";
 
 @injectable()
 export class BaseRepository<T extends BaseModel> implements IRepository<T> {
-    protected readonly _model: Model<T>;
+    private readonly _model: Model<T>;
 
     constructor(model: Model<T>) {
         this._model = model;
-    }
-
-    public get queryBuilder(): Model<T> {
-        return this._model;
     }
 
     async findAll(): Promise<T[]> {

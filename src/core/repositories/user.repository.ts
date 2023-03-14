@@ -7,11 +7,13 @@ import { Locator } from "../../constants";
 
 @injectable()
 export class UserRepository extends BaseRepository<User> implements IUserRepository {
-    constructor(@inject(Locator.UserModel) readonly model: Model<User>) {
-        super(model);
+    constructor(
+        @inject(Locator.UserModel) private readonly _userModel: Model<User>
+    ) {
+        super(_userModel);
     }
 
     async findByEmail(email: string): Promise<User | null> {
-        return await this._model.findOne({ email: email }).lean();
+        return await this._userModel.findOne({ email: email }).lean();
     }
 }

@@ -12,4 +12,8 @@ export class KeyRepository extends BaseRepository<Key> implements IKeyRepository
     ) {
         super(_keyModel);
     }
+
+    async findByUserId(userId: string): Promise<Key | null> {
+        return await this._keyModel.findOne({ user: userId }).lean();
+    }
 }

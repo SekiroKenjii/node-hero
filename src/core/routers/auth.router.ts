@@ -15,7 +15,7 @@ export class AuthRouter {
         this.initializeRoutes();
     }
 
-    initializeRoutes(): void {
+    async initializeRoutes(): Promise<void> {
         this._router.post('/sign-in', exceptionHandler(this._authController.signIn));
         this._router.post('/sign-up', exceptionHandler(this._authController.signUp));
     }

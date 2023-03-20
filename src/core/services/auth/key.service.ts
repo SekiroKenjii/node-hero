@@ -39,6 +39,7 @@ export class KeyService implements IKeyService {
         const { publicKey, privateKey } = keyPair;
 
         const update: UpdateQuery<Key> = {
+            user: userId,
             publicKey: publicKey,
             privateKey: privateKey,
             oldRefreshTokens: [],

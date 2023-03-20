@@ -6,6 +6,7 @@ export const Role = {
 
 export const Header = {
     API_KEY: 'x-api-key',
+    CLIENT_ID: 'x-client-id',
     AUTHORIZATION: 'authorization'
 };
 

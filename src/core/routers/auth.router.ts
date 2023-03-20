@@ -16,6 +16,7 @@ export class AuthRouter {
     }
 
     initializeRoutes(): void {
+        this._router.post('/sign-in', exceptionHandler(this._authController.signIn));
         this._router.post('/sign-up', exceptionHandler(this._authController.signUp));
     }
 

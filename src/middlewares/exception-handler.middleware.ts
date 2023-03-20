@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 
 export const exceptionHandler = (
-    fn: (req: Request, res: Response, next: NextFunction) => Promise<any>
+    func: (req: Request, res: Response, next: NextFunction) => Promise<any>
 ) => {
     return (req: Request, res: Response, next: NextFunction) => {
-        fn(req, res, next).catch(next);
+        func(req, res, next).catch(next);
     }
 }

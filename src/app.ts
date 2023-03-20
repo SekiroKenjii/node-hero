@@ -31,7 +31,7 @@ server.setConfig((app: Application) => {
     // Config route
     app.use(
         `/api/v${config.app.apiVersion}`,
-        container.get<IndexRouter>(Locator.IndexRouter).getRouter()
+        container.get<IndexRouter>(Locator.INDEX_ROUTER).getRouter()
     );
 });
 

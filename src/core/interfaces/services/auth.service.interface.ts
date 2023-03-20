@@ -1,6 +1,7 @@
 import { ApiResult } from "../../../wrappers";
-import { SignUpRequest, SignUpResponse } from "../contracts";
+import { SignUpRequest, AuthResponse, SignInRequest } from "../contracts";
 
 export interface IAuthService {
-    signUp(request: SignUpRequest): Promise<ApiResult<SignUpResponse>>;
+    signIn(request: SignInRequest): Promise<ApiResult<AuthResponse>>;
+    signUp(request: SignUpRequest): Promise<ApiResult<AuthResponse>>;
 }

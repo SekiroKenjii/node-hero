@@ -1,4 +1,4 @@
-import { FilterQuery } from 'mongoose';
+import { FilterQuery, UpdateQuery } from 'mongoose';
 
 export interface IRepository<T> {
     /**
@@ -52,7 +52,7 @@ export interface IRepository<T> {
      *
      * @returns An updated document.
      */
-    update(id: string, entity: Partial<T>): Promise<T | null>
+    update(id: string, entity: UpdateQuery<T>): Promise<T | null>
 
     /**
      * Delete the first document that matches a specified id from the specified (T) table.

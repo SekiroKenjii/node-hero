@@ -16,11 +16,15 @@ export const keySchema: Schema<Key> = new Schema<Key>({
         type: String,
         require: true
     },
-    refreshTokens: {
+    oldRefreshTokens: {
         type: [String],
         default: []
+    },
+    refreshToken: {
+        type: String,
+        require: true
     }
 }, {
     timestamps: true,
-    collection: CollectionName.Key,
+    collection: CollectionName.KEY,
 });

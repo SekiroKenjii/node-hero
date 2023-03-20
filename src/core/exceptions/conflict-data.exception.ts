@@ -4,6 +4,6 @@ import { BaseException } from "./base.exception";
 
 export class ConflictDataException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.Conflict, errorParams);
+        super(StatusCode.CONFLICT, errorParams);
     }
 }

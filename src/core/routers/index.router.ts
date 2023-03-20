@@ -10,8 +10,8 @@ export class IndexRouter {
     private readonly _router: Router;
 
     constructor(
-        @inject(Locator.AuthRouter) private readonly _authRouter: AuthRouter,
-        @inject(Locator.ExampleController) private readonly _exampleController: ExampleController
+        @inject(Locator.AUTH_ROUTER) private readonly _authRouter: AuthRouter,
+        @inject(Locator.EXAMPLE_CONTROLLER) private readonly _exampleController: ExampleController
     ) {
         this._router = Router();
         this.initializeRoutes();

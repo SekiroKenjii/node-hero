@@ -4,6 +4,6 @@ import { StatusCode } from "../../constants";
 
 export class ForbiddenException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.Forbidden, errorParams);
+        super(StatusCode.FORBIDDEN, errorParams);
     }
 }

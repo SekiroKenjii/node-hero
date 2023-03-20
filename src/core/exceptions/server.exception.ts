@@ -4,7 +4,7 @@ import { StatusCode } from "../../constants";
 
 export class ServerException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.InternalServerError, errorParams);
+        super(StatusCode.INTERNAL_SERVER_ERROR, errorParams);
 
         this.setDefaultErrors();
     }

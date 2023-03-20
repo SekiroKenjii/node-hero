@@ -4,6 +4,6 @@ import { BaseException } from "./base.exception";
 
 export class BadRequestException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.BadRequest, errorParams);
+        super(StatusCode.BAD_REQUEST, errorParams);
     }
 }

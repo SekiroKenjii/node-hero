@@ -1,7 +1,7 @@
-import { ObjectId } from "mongoose";
 import { KeyPair } from "../contracts";
 
 export interface IKeyService {
-    generateUserKeyPair(userId: ObjectId): Promise<KeyPair | null>;
-    generateUserKeyPairAlt(userId: ObjectId): Promise<KeyPair | null>;
+    generateRandomKeyPair(): Promise<KeyPair | null>;
+    generateRandomKeyPairAlt(): Promise<KeyPair | null>;
+    saveUserKeyPair(userId: string, keyPair: KeyPair, refreshToken: string): Promise<boolean>;
 }

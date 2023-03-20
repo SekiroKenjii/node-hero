@@ -12,7 +12,7 @@ import {
 } from '../../services/auth';
 
 export const serviceContainerModule: ContainerModule = new ContainerModule((bind) => {
-    bind<IAuthService>(Locator.AuthService).to(AuthService).inRequestScope();
-    bind<IKeyService>(Locator.KeyService).to(KeyService).inRequestScope();
-    bind<ITokenService>(Locator.TokenService).to(TokenService).inRequestScope();
+    bind<IAuthService>(Locator.AUTH_SERVICE).to(AuthService).inRequestScope();
+    bind<IKeyService>(Locator.KEY_SERVICE).to(KeyService).inRequestScope();
+    bind<ITokenService>(Locator.TOKEN_SERVICE).to(TokenService).inRequestScope();
 });

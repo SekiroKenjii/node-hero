@@ -8,7 +8,7 @@ import { Model } from "mongoose";
 @injectable()
 export class ApiKeyRepository extends BaseRepository<ApiKey> implements IApiKeyRepository {
     constructor(
-        @inject(Locator.ApiKeyModel) private readonly _apiKeyModel: Model<ApiKey>
+        @inject(Locator.APIKEY_MODEL) private readonly _apiKeyModel: Model<ApiKey>
     ) {
         super(_apiKeyModel);
     }

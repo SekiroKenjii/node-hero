@@ -1,37 +1,25 @@
 import crypto from 'node:crypto';
 import { inject, injectable } from 'inversify';
-import { ObjectId } from 'mongoose';
-import { KeyPair } from '../../interfaces/contracts';
+import { UpdateQuery } from 'mongoose';
+import { Key, KeyPair } from '../../interfaces/contracts';
 import { IKeyService } from '../../interfaces/services';
 import { Locator } from '../../../constants';
 import { IKeyRepository } from '../../interfaces/repositories';
 
 @injectable()
 export class KeyService implements IKeyService {
-    constructor(@inject(Locator.KeyRepository) readonly _keyRepository: IKeyRepository) { }
+    constructor(
+        @inject(Locator.KEY_REPOSITORY) readonly _keyRepository: IKeyRepository
+    ) { }
 
-    async generateUserKeyPair(userId: ObjectId): Promise<KeyPair | null> {
+    async generateRandomKeyPair(): Promise<KeyPair | null> {
         const publicKeyString = await crypto.randomBytes(64).toString('hex');
         const privateKeyString = await crypto.randomBytes(64).toString('hex');
 
-        const createdKey = await this._keyRepository.create({
-            user: userId,
-            publicKey: publicKeyString,
-            privateKey: privateKeyString
-        });
-
-        if (!createdKey) {
-            console.log('Failed to generate user key.');
-            return null;
-        }
-
-        return {
-            publicKey: createdKey.publicKey,
-            privateKey: createdKey.privateKey
-        };
+        return this.makeKeyPair(publicKeyString, privateKeyString);
     }
 
-    async generateUserKeyPairAlt(userId: ObjectId): Promise<KeyPair | null> {
+    async generateRandomKeyPairAlt(): Promise<KeyPair | null> {
         const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
             modulusLength: 4096,
             publicKeyEncoding: {
@@ -44,20 +32,37 @@ export class KeyService implements IKeyService {
             }
         });
 
-        const createdKey = await this._keyRepository.create({
-            user: userId,
-            publicKey: publicKey,
-            privateKey: privateKey
-        });
+        return this.makeKeyPair(publicKey, privateKey);
+    }
 
-        if (!createdKey) {
-            console.log('Failed to generate user key!');
+    async saveUserKeyPair(userId: string, keyPair: KeyPair, refreshToken: string): Promise<boolean> {
+        const { publicKey, privateKey } = keyPair;
+
+        const update: UpdateQuery<Key> = {
+            publicKey: publicKey,
+            privateKey: privateKey,
+            oldRefreshTokens: [],
+            refreshToken: refreshToken
+        };
+
+        const result = await this._keyRepository.update(userId, update);
+
+        if (!result) {
+            console.log('Failed to generate user key.');
+            return false;
+        }
+
+        return true;
+    }
+
+    private makeKeyPair(publicKey: string, privateKey: string): KeyPair | null {
+        if (!publicKey || !privateKey) {
             return null;
         }
 
         return {
-            publicKey: createdKey.publicKey,
-            privateKey: createdKey.privateKey
+            publicKey: publicKey,
+            privateKey: privateKey
         };
     }
 }

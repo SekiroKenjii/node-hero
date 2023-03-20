@@ -1,6 +1,6 @@
 import { Document, ObjectId } from 'mongoose';
 
-export interface BaseModel extends Document {}
+export interface BaseModel extends Document { }
 
 export interface ApiKey extends BaseModel {
     key: string;
@@ -12,7 +12,8 @@ export interface Key extends BaseModel {
     user: ObjectId;
     publicKey: string;
     privateKey: string;
-    refreshTokens: string[];
+    oldRefreshTokens: string[];
+    refreshToken: string;
 }
 
 export interface User extends BaseModel {

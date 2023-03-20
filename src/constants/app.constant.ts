@@ -1,50 +1,115 @@
 export const Role = {
-    Admin: 'Admin',
-    Moderator: 'Moderator',
-    Basic: 'Basic'
+    ADMIN: 'Admin',
+    MODERATOR: 'Moderator',
+    BASIC: 'Basic'
 };
 
 export const Header = {
-    ApiKey: 'x-api-key',
-    Authorization: 'authorization'
+    API_KEY: 'x-api-key',
+    AUTHORIZATION: 'authorization'
 };
 
 export const Locator = {
     // Repository
-    BaseRepository: Symbol('BaseRepository'),
-    ApiKeyRepository: Symbol('ApiKeyRepository'),
-    KeyRepository: Symbol('KeyRepository'),
-    UserRepository: Symbol('UserRepository'),
+    BASE_REPOSITORY: Symbol('BaseRepository'),
+    APIKEY_REPOSITORY: Symbol('ApiKeyRepository'),
+    KEY_REPOSITORY: Symbol('KeyRepository'),
+    USER_REPOSITORY: Symbol('UserRepository'),
 
     // Service
-    AuthService: Symbol('AuthService'),
-    KeyService: Symbol('KeyService'),
-    TokenService: Symbol('TokenService'),
+    AUTH_SERVICE: Symbol('AuthService'),
+    KEY_SERVICE: Symbol('KeyService'),
+    TOKEN_SERVICE: Symbol('TokenService'),
 
     // Model
-    ApiKeyModel: Symbol('ApiKeyModel'),
-    UserModel: Symbol('UserModel'),
-    KeyModel: Symbol('KeyModel'),
+    APIKEY_MODEL: Symbol('ApiKeyModel'),
+    USER_MODEL: Symbol('UserModel'),
+    KEY_MODEL: Symbol('KeyModel'),
 
     // Controller
-    BaseController: Symbol('BaseController'),
-    ExampleController: Symbol('ExampleController'),
-    AuthController: Symbol('AuthController'),
+    BASE_CONTROLLER: Symbol('BaseController'),
+    EXAMPLE_CONTROLLER: Symbol('ExampleController'),
+    AUTH_CONTROLLER: Symbol('AuthController'),
 
     // Router
-    IndexRouter: Symbol('IndexRouter'),
-    AuthRouter: Symbol('AuthRouter')
+    INDEX_ROUTER: Symbol('IndexRouter'),
+    AUTH_ROUTER: Symbol('AuthRouter')
 }
 
 export const StatusCode = {
-    Ok: 200,
-    Created: 201,
-    NoContent: 204,
-    BadRequest: 400,
-    Unauthorized: 401,
-    Forbidden: 403,
-    NotFound: 404,
-    Conflict: 409,
-    Unprocessable: 422,
-    InternalServerError: 500
+    CONTINUE: 100,
+    SWITCHING_PROTOCOLS: 101,
+    PROCESSING: 102,
+    OK: 200,
+    CREATED: 201,
+    ACCEPTED: 202,
+    NON_AUTHORITATIVE_INFORMATION: 203,
+    NO_CONTENT: 204,
+    RESET_CONTENT: 205,
+    PARTIAL_CONTENT: 206,
+    MULTI_STATUS: 207,
+    MULTIPLE_CHOICES: 300,
+    MOVED_PERMANENTLY: 301,
+    MOVED_TEMPORARILY: 302,
+    SEE_OTHER: 303,
+    NOT_MODIFIED: 304,
+
+    /**
+     * @deprecated
+     *
+     * Was defined in a previous version of the HTTP specification to indicate that a requested response must be accessed by a proxy. It has been deprecated due to security concerns regarding in-band configuration of a proxy.
+     */
+    USE_PROXY: 305,
+
+    TEMPORARY_REDIRECT: 307,
+    PERMANENT_REDIRECT: 308,
+    BAD_REQUEST: 400,
+    UNAUTHORIZED: 401,
+    PAYMENT_REQUIRED: 402,
+    FORBIDDEN: 403,
+    NOT_FOUND: 404,
+    METHOD_NOT_ALLOWED: 405,
+    NOT_ACCEPTABLE: 406,
+    PROXY_AUTHENTICATION_REQUIRED: 407,
+    REQUEST_TIMEOUT: 408,
+    CONFLICT: 409,
+    GONE: 410,
+    LENGTH_REQUIRED: 411,
+    PRECONDITION_FAILED: 412,
+    REQUEST_TOO_LONG: 413,
+    REQUEST_URI_TOO_LONG: 414,
+    UNSUPPORTED_MEDIA_TYPE: 415,
+    REQUESTED_RANGE_NOT_SATISFIABLE: 416,
+    EXPECTATION_FAILED: 417,
+    IM_A_TEAPOT: 418,
+    INSUFFICIENT_SPACE_ON_RESOURCE: 419,
+
+    /**
+     * @deprecated
+     *
+     * A deprecated response used by the Spring Framework when a method has failed.
+     */
+    METHOD_FAILURE: 420,
+
+    MISDIRECTED_REQUEST: 421,
+    UNPROCESSABLE_ENTITY: 422,
+    LOCKED: 423,
+    FAILED_DEPENDENCY: 424,
+    PRECONDITION_REQUIRED: 428,
+    TOO_MANY_REQUESTS: 429,
+    REQUEST_HEADER_FIELDS_TOO_LARGE: 431,
+    UNAVAILABLE_FOR_LEGAL_REASONS: 451,
+    INTERNAL_SERVER_ERROR: 500,
+    NOT_IMPLEMENTED: 501,
+    BAD_GATEWAY: 502,
+    SERVICE_UNAVAILABLE: 503,
+    GATEWAY_TIMEOUT: 504,
+    HTTP_VERSION_NOT_SUPPORTED: 505,
+    INSUFFICIENT_STORAGE: 507,
+    NETWORK_AUTHENTICATION_REQUIRED: 511
+}
+
+export const AuthType = {
+    SIGN_IN: 'SignIn',
+    SIGN_UP: 'SignUp'
 }

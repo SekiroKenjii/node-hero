@@ -4,6 +4,6 @@ import { StatusCode } from "../../constants";
 
 export class UnauthorizedException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.Unauthorized, errorParams);
+        super(StatusCode.UNAUTHORIZED, errorParams);
     }
 }

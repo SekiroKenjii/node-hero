@@ -34,5 +34,5 @@ export const userSchema: Schema<User> = new Schema<User>({
     }
 }, {
     timestamps: true,
-    collection: CollectionName.User,
+    collection: CollectionName.USER,
 });

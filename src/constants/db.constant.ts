@@ -1,11 +1,11 @@
 export const DocumentName = {
-    ApiKey: 'ApiKey',
-    Key: 'Key',
-    User: 'User',
+    API_KEY: 'ApiKey',
+    KEY: 'Key',
+    USER: 'User',
 }
 
 export const CollectionName = {
-    ApiKey: 'ApiKeys',
-    Key: 'Keys',
-    User: 'Users',
+    API_KEY: 'ApiKeys',
+    KEY: 'Keys',
+    USER: 'Users',
 }

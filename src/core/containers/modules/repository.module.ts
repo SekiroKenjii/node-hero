@@ -12,7 +12,7 @@ import {
 } from "../../repositories";
 
 export const repositoryContainerModule: ContainerModule = new ContainerModule((bind) => {
-    bind<IUserRepository>(Locator.UserRepository).to(UserRepository).inSingletonScope();
-    bind<IKeyRepository>(Locator.KeyRepository).to(KeyRepository).inSingletonScope();
-    bind<IApiKeyRepository>(Locator.ApiKeyRepository).to(ApiKeyRepository).inSingletonScope();
+    bind<IUserRepository>(Locator.USER_REPOSITORY).to(UserRepository).inSingletonScope();
+    bind<IKeyRepository>(Locator.KEY_REPOSITORY).to(KeyRepository).inSingletonScope();
+    bind<IApiKeyRepository>(Locator.APIKEY_REPOSITORY).to(ApiKeyRepository).inSingletonScope();
 });

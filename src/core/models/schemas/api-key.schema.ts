@@ -19,5 +19,5 @@ export const apiKeySchema: Schema<ApiKey> = new Schema<ApiKey>({
     },
 }, {
     timestamps: true,
-    collection: CollectionName.ApiKey,
+    collection: CollectionName.API_KEY,
 });

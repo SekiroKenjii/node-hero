@@ -8,7 +8,7 @@ import { Locator } from "../../constants";
 @injectable()
 export class UserRepository extends BaseRepository<User> implements IUserRepository {
     constructor(
-        @inject(Locator.UserModel) private readonly _userModel: Model<User>
+        @inject(Locator.USER_MODEL) private readonly _userModel: Model<User>
     ) {
         super(_userModel);
     }

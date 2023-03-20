@@ -4,6 +4,6 @@ import { StatusCode } from "../../constants";
 
 export class UnprocessableException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.Unprocessable, errorParams);
+        super(StatusCode.UNPROCESSABLE_ENTITY, errorParams);
     }
 }

@@ -7,7 +7,7 @@ import { BaseController } from "./base.controller";
 @injectable()
 export class ExampleController extends BaseController {
     example = async (req: Request, res: Response, next: NextFunction) => {
-        return this.handleResult(res, await ApiResult.successAsync<string>(StatusCode.Ok, {
+        return this.handleResult(res, await ApiResult.successAsync<string>(StatusCode.OK, {
             message: 'OK',
             data: 'Node Server example route.'
         }));

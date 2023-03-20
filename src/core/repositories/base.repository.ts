@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { FilterQuery, Model } from "mongoose";
+import { FilterQuery, Model, QueryOptions, UpdateQuery } from "mongoose";
 import { BaseModel } from "../interfaces/contracts";
 import { IRepository } from "../interfaces/repositories";
 
@@ -31,20 +31,21 @@ export class BaseRepository<T extends BaseModel> implements IRepository<T> {
         return await this._model.create(entities);
     }
 
-    async update(id: string, entity: Partial<T>): Promise<T | null> {
-        const existing = await this._model.findById(id).exec();
+    async update(id: string, entity: UpdateQuery<T>): Promise<T | null> {
+        const options: QueryOptions<T> = { upsert: true, new: true };
 
-        if (!existing) {
+        const result = await this._model.findByIdAndUpdate(id, entity, options);
+
+        if (!result) {
             return null;
         }
 
-        Object.assign(existing, entity);
-        return existing.save();
+        return result;
     }
 
     async delete(id: string): Promise<boolean> {
-        const result = await this._model.deleteOne({ _id: id }).exec();
+        const result = await this._model.findByIdAndDelete(id);
 
-        return result.deletedCount === 1;
+        return result ? true : false;
     }
 }

@@ -9,7 +9,7 @@ export class AuthRouter {
     private readonly _router: Router;
 
     constructor(
-        @inject(Locator.AuthController) private readonly _authController: AuthController
+        @inject(Locator.AUTH_CONTROLLER) private readonly _authController: AuthController
     ) {
         this._router = Router();
         this.initializeRoutes();

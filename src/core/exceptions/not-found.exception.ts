@@ -4,6 +4,6 @@ import { StatusCode } from "../../constants";
 
 export class NotFoundException extends BaseException {
     constructor(errorParams: ErrorParams) {
-        super(StatusCode.NotFound, errorParams);
+        super(StatusCode.NOT_FOUND, errorParams);
     }
 }

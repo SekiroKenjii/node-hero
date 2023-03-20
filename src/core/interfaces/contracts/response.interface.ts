@@ -6,7 +6,7 @@ export interface UserResponse {
     fullname: string;
 }
 
-export interface SignUpResponse {
+export interface AuthResponse {
     user: UserResponse;
     token: TokenPair
 }

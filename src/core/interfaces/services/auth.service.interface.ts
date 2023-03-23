@@ -1,7 +1,9 @@
 import { ApiResult } from "../../../wrappers";
-import { SignUpRequest, AuthResponse, SignInRequest } from "../contracts";
+import { SignUpRequest, AuthenticationResponse, SignInRequest, Payload, AuthenticationRequest } from "../contracts";
 
 export interface IAuthService {
-    signIn(request: SignInRequest): Promise<ApiResult<AuthResponse>>;
-    signUp(request: SignUpRequest): Promise<ApiResult<AuthResponse>>;
+    signIn(request: SignInRequest): Promise<ApiResult<AuthenticationResponse>>;
+    signUp(request: SignUpRequest): Promise<ApiResult<AuthenticationResponse>>;
+    signOut(request?: AuthenticationRequest): Promise<ApiResult<boolean>>;
+    refreshUserToken(request?: AuthenticationRequest): Promise<ApiResult<AuthenticationResponse>>
 }

@@ -1,16 +1,22 @@
 import { Request as ExpressRequest } from 'express';
 
-export interface Request extends ExpressRequest {
-    apiKey?: {
-        key: string;
-        status: boolean;
-        permissions?: string[];
-    };
+export interface ApiKeyRequest {
+    key: string;
+    status: boolean;
+    permissions?: string[];
+}
 
-    userKey?: {
-        userId: string;
-        publicKey: string;
-    }
+export interface AuthenticationRequest {
+    userId: string;
+    accessToken: string;
+    refreshToken: string;
+    publicKey: string;
+    privateKey: string;
+}
+
+export interface Request extends ExpressRequest {
+    apiKey?: ApiKeyRequest;
+    authentication?: AuthenticationRequest;
 }
 
 export interface SignUpRequest {

@@ -2,15 +2,13 @@ import { Response, NextFunction } from "express";
 import { Request } from '../core/interfaces/contracts';
 import { Header } from "../constants";
 import { UnauthorizedException } from "../core/exceptions";
-import { IKeyRepository } from "../core/interfaces/repositories";
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { Payload } from "../core/interfaces/contracts";
+import { ITokenService } from "../core/interfaces/services";
 
-export class RequestHandler {
-    private readonly _keyRepository: IKeyRepository;
+export default class RequestHandlerMiddleware {
+    private readonly _tokenService: ITokenService;
 
-    constructor(keyRepository: IKeyRepository) {
-        this._keyRepository = keyRepository;
+    constructor(tokenService: ITokenService) {
+        this._tokenService = tokenService;
     }
 
     invoke = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -23,55 +21,39 @@ export class RequestHandler {
             });
         }
 
-        const key = await this._keyRepository.findByUserId(userId);
-
-        if (!key) {
-            throw new UnauthorizedException({
-                message: 'Invalid Request!',
-                errors: ['User Key not found.']
-            });
-        }
-
-        const accessToken = req.headers[Header.AUTHORIZATION];
+        const accessToken = req.headers[Header.ACCESS_TOKEN];
 
         if (typeof accessToken !== 'string' || accessToken === undefined || !accessToken) {
             throw new UnauthorizedException({
                 message: 'Invalid Request!',
-                errors: ['Authentication header not found.']
+                errors: ['Access Token not found.']
             });
         }
 
-        let decode: string | JwtPayload;
+        const refreshToken = req.headers[Header.REFRESH_TOKEN];
+
+        if (typeof refreshToken !== 'string' || refreshToken === undefined || !refreshToken) {
+            throw new UnauthorizedException({
+                message: 'Invalid Request!',
+                errors: ['Refresh Token not found.']
+            });
+        }
 
         try {
-            decode = jwt.verify(accessToken, key.publicKey);
-        } catch (error) {
+            let authRequest = await this._tokenService.verifyAccessToken(userId, accessToken);
+            authRequest = await this._tokenService.verifyRefreshToken(userId, refreshToken);
+
+            req.authentication = authRequest;
+            req.authentication.accessToken = accessToken;
+            req.authentication.refreshToken = refreshToken;
+        } catch (error: any) {
+            console.log(error.message);
+
             throw new UnauthorizedException({
                 message: 'Invalid Request!',
-                errors: ['Invalid Authentication header.']
+                errors: [error.message]
             });
         }
-
-        if (typeof decode === 'string' || decode === undefined || !decode) {
-            throw new UnauthorizedException({
-                message: 'Invalid Request!',
-                errors: ['Invalid Authentication header.']
-            });
-        }
-
-        const payload: Payload = decode as Payload;
-
-        if (userId !== payload.userId) {
-            throw new UnauthorizedException({
-                message: 'Invalid Request!',
-                errors: ['Invalid User Id.']
-            });
-        }
-
-        req.userKey = {
-            userId: key.user.toString(),
-            publicKey: key.publicKey
-        };
 
         return next();
     }

@@ -13,6 +13,7 @@ export interface Key extends BaseModel {
     publicKey: string;
     privateKey: string;
     oldRefreshTokens: string[];
+    accessToken: string;
     refreshToken: string;
 }
 

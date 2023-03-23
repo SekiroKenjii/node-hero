@@ -20,6 +20,10 @@ export const keySchema: Schema<Key> = new Schema<Key>({
         type: [String],
         default: []
     },
+    accessToken: {
+        type: String,
+        require: true
+    },
     refreshToken: {
         type: String,
         require: true

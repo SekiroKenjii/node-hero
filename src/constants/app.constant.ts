@@ -7,7 +7,8 @@ export const Role = {
 export const Header = {
     API_KEY: 'x-api-key',
     CLIENT_ID: 'x-client-id',
-    AUTHORIZATION: 'authorization'
+    ACCESS_TOKEN: 'x-access-token',
+    REFRESH_TOKEN: 'x-refresh-token'
 };
 
 export const Locator = {

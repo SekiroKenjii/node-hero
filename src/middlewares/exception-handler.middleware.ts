@@ -1,4 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import {
+    Request,
+    Response,
+    NextFunction
+} from "express";
 
 export const exceptionHandler = (
     func: (req: Request, res: Response, next: NextFunction) => Promise<any>

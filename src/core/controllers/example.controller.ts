@@ -1,4 +1,8 @@
-import { Request, Response, NextFunction } from "express";
+import {
+    Request,
+    Response,
+    NextFunction
+} from "express";
 import { injectable } from "inversify";
 import { StatusCode } from "../../constants";
 import { ApiResult } from "../../wrappers";

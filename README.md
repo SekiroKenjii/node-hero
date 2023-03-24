@@ -32,7 +32,12 @@ npm run start
 - [NodeJS](https://nodejs.org/en/)
 - [ExpressJS](https://expressjs.com/)
 - [MongoDB](https://www.mongodb.com/)
-- [InversifyJS](https://www.npmjs.com/package/inversify)
+- [InversifyJS](https://inversify.io/)
+- [BCrypt](https://www.npmjs.com/package/bcrypt)
+- [Compression](https://www.npmjs.com/package/compression)
+- [Helmet](https://helmetjs.github.io/)
+- [JSON Web Tokens](https://jwt.io/)
+- [Lodash](https://lodash.com/)
 
 ## License
 

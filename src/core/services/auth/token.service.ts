@@ -1,7 +1,15 @@
 import { inject, injectable } from 'inversify';
-import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
+import jwt, {
+    JsonWebTokenError,
+    TokenExpiredError
+} from 'jsonwebtoken';
 import { Locator } from '../../../constants';
-import { AuthenticationRequest, Payload, Token, TokenPair } from "../../interfaces/contracts";
+import {
+    AuthenticationRequest,
+    Payload,
+    Token,
+    TokenPair
+} from "../../interfaces/contracts";
 import { IKeyRepository } from '../../interfaces/repositories';
 import { IKeyService, ITokenService } from '../../interfaces/services';
 
@@ -12,7 +20,7 @@ export class TokenService implements ITokenService {
         @inject(Locator.KEY_SERVICE) private readonly _keyService: IKeyService
     ) { }
 
-    async generateJWTToken(request: Token): Promise<TokenPair | null> {
+    async generateJWT(request: Token): Promise<TokenPair | null> {
         const { payload, publicKey, privateKey } = request;
 
         const accessToken = await jwt.sign(payload, publicKey, { expiresIn: '30m' });

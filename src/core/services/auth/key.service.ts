@@ -1,7 +1,12 @@
 import crypto from 'node:crypto';
 import { inject, injectable } from 'inversify';
 import { UpdateQuery } from 'mongoose';
-import { Key, KeyPair, KeyResponse, TokenPair } from '../../interfaces/contracts';
+import {
+    Key,
+    KeyPair,
+    KeyResponse,
+    TokenPair
+} from '../../interfaces/contracts';
 import { IKeyService } from '../../interfaces/services';
 import { Locator } from '../../../constants';
 import { IKeyRepository } from '../../interfaces/repositories';

@@ -1,5 +1,10 @@
 import { injectable } from "inversify";
-import { FilterQuery, Model, QueryOptions, UpdateQuery } from "mongoose";
+import {
+    FilterQuery,
+    Model,
+    QueryOptions,
+    UpdateQuery
+} from "mongoose";
 import { BaseModel } from "../interfaces/contracts";
 import { IRepository } from "../interfaces/repositories";
 

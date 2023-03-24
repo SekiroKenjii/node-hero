@@ -117,7 +117,7 @@ export class AuthService implements IAuthService {
             });
         }
 
-        const tokenPair = await this._tokenService.generateJWTToken({
+        const tokenPair = await this._tokenService.generateJWT({
             payload: {
                 userId: userId,
                 email: user.email,
@@ -198,7 +198,7 @@ export class AuthService implements IAuthService {
 
         const userResponse: UserResponse = pickFields(user, ['_id', 'fullname', 'email']);
 
-        const tokenPair = await this._tokenService.generateJWTToken({
+        const tokenPair = await this._tokenService.generateJWT({
             payload: {
                 userId: userResponse._id!.toString(),
                 email: userResponse.email,

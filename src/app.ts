@@ -1,7 +1,10 @@
 import 'reflect-metadata';
 import config from './configs/environment.config';
 import mongoDb from "./db/mongo.db";
-import express, { Application, ErrorRequestHandler } from "express";
+import express, {
+    Application,
+    ErrorRequestHandler
+} from "express";
 import compression from "compression";
 import helmet from "helmet";
 import { seedApiKey } from "./utils/data.util";
@@ -9,7 +12,11 @@ import { InversifyExpressServer } from "inversify-express-utils";
 import container from "./core/containers/config.container";
 import { Locator } from "./constants";
 import { IndexRouter } from "./core/routers";
-import { Request, Response, NextFunction } from 'express';
+import {
+    Request,
+    Response,
+    NextFunction
+} from 'express';
 import { ApiResult } from "./wrappers";
 import { NotFoundException } from './core/exceptions';
 

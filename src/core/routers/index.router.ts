@@ -1,7 +1,9 @@
 import { Router } from 'express'
 import { inject, injectable } from 'inversify';
 import { Locator } from '../../constants';
-import RequestHandlerMiddleware, { exceptionHandler } from '../../middlewares';
+import RequestHandlerMiddleware, {
+    exceptionHandler
+} from '../../middlewares';
 import { ExampleController } from '../controllers/example.controller';
 import { ITokenService } from '../interfaces/services';
 import { AuthRouter } from './auth.router';

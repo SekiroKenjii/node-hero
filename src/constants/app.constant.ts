@@ -12,6 +12,9 @@ export const Header = {
 };
 
 export const Locator = {
+    // DB
+    MONGO_DB: Symbol('MongoDb'),
+
     // Repository
     BASE_REPOSITORY: Symbol('BaseRepository'),
     APIKEY_REPOSITORY: Symbol('ApiKeyRepository'),

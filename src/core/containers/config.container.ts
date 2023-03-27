@@ -4,12 +4,14 @@ import {
     repositoryContainerModule,
     serviceContainerModule,
     controllerContainerModule,
-    routerContainerModule
+    routerContainerModule,
+    databaseContainerModule
 } from "./modules";
 
 const appContainer: Container = new Container();
 
 appContainer.load(
+    databaseContainerModule,
     modelContainerModule,
     repositoryContainerModule,
     serviceContainerModule,

@@ -1,4 +1,5 @@
 export * from './controller.module';
+export * from './database.module';
 export * from './model.module';
 export * from './repository.module';
 export * from './router.module';

@@ -1,13 +1,11 @@
 import 'reflect-metadata';
 import config from './configs/environment.config';
-import mongoDb from "./db/mongo.db";
 import express, {
     Application,
     ErrorRequestHandler
 } from "express";
 import compression from "compression";
 import helmet from "helmet";
-import { seedApiKey, seedRole } from "./utils/data.util";
 import { InversifyExpressServer } from "inversify-express-utils";
 import container from "./core/containers/config.container";
 import { Locator } from "./constants";
@@ -19,11 +17,12 @@ import {
 } from 'express';
 import { ApiResult } from "./wrappers";
 import { NotFoundException } from './core/exceptions';
+import { MongoDb } from './db';
 
 // Config db
-mongoDb();
-seedApiKey();
-seedRole();
+const mongoDb = container.get<MongoDb>(Locator.MONGO_DB);
+mongoDb.seedApiKey();
+mongoDb.seedRole();
 
 const server: InversifyExpressServer = new InversifyExpressServer(container);
 

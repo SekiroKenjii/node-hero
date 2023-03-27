@@ -7,7 +7,7 @@ import express, {
 } from "express";
 import compression from "compression";
 import helmet from "helmet";
-import { seedApiKey } from "./utils/data.util";
+import { seedApiKey, seedRole } from "./utils/data.util";
 import { InversifyExpressServer } from "inversify-express-utils";
 import container from "./core/containers/config.container";
 import { Locator } from "./constants";
@@ -23,6 +23,7 @@ import { NotFoundException } from './core/exceptions';
 // Config db
 mongoDb();
 seedApiKey();
+seedRole();
 
 const server: InversifyExpressServer = new InversifyExpressServer(container);
 

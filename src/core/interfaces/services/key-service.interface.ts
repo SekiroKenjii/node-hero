@@ -1,8 +1,5 @@
-import {
-    KeyPair,
-    KeyResponse,
-    TokenPair
-} from "../contracts";
+import { KeyPair, TokenPair } from "../contracts";
+import { KeyResponse } from '../http';
 
 export interface IKeyService {
     generateRandomKeyPair(): Promise<KeyPair | null>;

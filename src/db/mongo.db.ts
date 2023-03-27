@@ -9,7 +9,10 @@ async function connectMongoDb(): Promise<void> {
     try {
         await mongoose.connect(CONNECTION_STRING, {
             maxPoolSize: 100,
-            connectTimeoutMS: 30000
+            connectTimeoutMS: 30000,
+            authSource: 'admin',
+            user: dbConfig.user_name,
+            pass: dbConfig.password,
         });
 
         console.log('Connected to MongoDB!');

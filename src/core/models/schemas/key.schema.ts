@@ -3,28 +3,28 @@ import { CollectionName } from "../../../constants";
 import { Key } from "../../interfaces/contracts";
 
 export const keySchema: Schema<Key> = new Schema<Key>({
-    user: {
+    user_id: {
         type: Schema.Types.ObjectId,
         require: true,
         ref: 'User'
     },
-    publicKey: {
+    public_key: {
         type: String,
         require: true
     },
-    privateKey: {
+    private_key: {
         type: String,
         require: true
     },
-    oldRefreshTokens: {
+    old_refresh_tokens: {
         type: [String],
         default: []
     },
-    accessToken: {
+    access_token: {
         type: String,
         require: true
     },
-    refreshToken: {
+    refresh_token: {
         type: String,
         require: true
     }

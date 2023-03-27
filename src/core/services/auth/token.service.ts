@@ -5,11 +5,11 @@ import jwt, {
 } from 'jsonwebtoken';
 import { Locator } from '../../../constants';
 import {
-    AuthenticationRequest,
     Payload,
     Token,
     TokenPair
 } from "../../interfaces/contracts";
+import { AuthenticationRequest } from '../../interfaces/http';
 import { IKeyRepository } from '../../interfaces/repositories';
 import { IKeyService, ITokenService } from '../../interfaces/services';
 
@@ -26,24 +26,14 @@ export class TokenService implements ITokenService {
         const accessToken = await jwt.sign(payload, publicKey, { expiresIn: '30m' });
         const refreshToken = await jwt.sign(payload, privateKey, { expiresIn: '7 days' });
 
-        const verifyAccessToken = this.verifyToken(accessToken, publicKey);
-
-        if (!verifyAccessToken) {
-            console.log('Failed to generate token.');
+        try {
+            jwt.verify(accessToken, publicKey);
+        } catch (error: any) {
+            console.log('Failed to generate token:', error);
             return null;
         }
 
         return this.makeTokenPair(accessToken, refreshToken);
-    }
-
-    private verifyToken(accessToken: string, publicKey: string): boolean {
-        try {
-            jwt.verify(accessToken, publicKey);
-            return true;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
     }
 
     private makeTokenPair(accessToken: string, refreshToken: string): TokenPair | null {
@@ -51,45 +41,28 @@ export class TokenService implements ITokenService {
             return null;
         }
 
-        return { accessToken, refreshToken };
+        return { accessToken, refreshToken } as TokenPair;
     }
 
-    async verifyAccessToken(userId: string, accessToken: string): Promise<AuthenticationRequest | null> {
-        return new Promise(async (resolve, reject) => {
-            const key = await this._keyService.getUserKeyByUserId(userId);
+    async verifyAccessToken(userId: string, accessToken: string): Promise<void> {
+        const key = await this._keyService.getUserKeyByUserId(userId);
 
-            if (!key) {
-                reject(new Error('Invalid Authentication or JWT malformed.'));
+        if (!key || key.accessToken !== accessToken) {
+            throw new Error('Invalid Authentication or JWT malformed.');
+        }
+
+        jwt.verify(accessToken, key.publicKey, (error: any, decoded: any) => {
+            if (error instanceof TokenExpiredError) {
                 return;
             }
 
-            if (key.accessToken !== accessToken) {
-                reject(new Error('Invalid Authentication or token has expired.'));
-                return;
+            if (error instanceof JsonWebTokenError) {
+                throw new Error('Invalid Authentication or JWT malformed.');
             }
 
-            jwt.verify(accessToken, key.publicKey, (error: any, decoded: any) => {
-                if (error instanceof TokenExpiredError) {
-                    resolve(null);
-                    return;
-                }
-
-                if (error instanceof JsonWebTokenError) {
-                    reject(new Error('Invalid Authentication or JWT malformed.'));
-                    return;
-                }
-
-                if (typeof decoded === 'string' || decoded === undefined || !decoded) {
-                    reject(new Error('Invalid Authentication or decoded value.'));
-                    return;
-                }
-
-                resolve({
-                    userId: (decoded as Payload).userId,
-                    privateKey: key.privateKey,
-                    publicKey: key.publicKey
-                } as AuthenticationRequest);
-            });
+            if (typeof decoded === 'string' || decoded === undefined || !decoded) {
+                throw new Error('Invalid Authentication or decoded value.');
+            }
         });
     }
 

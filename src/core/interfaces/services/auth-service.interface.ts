@@ -4,7 +4,7 @@ import {
     AuthenticationResponse,
     SignInRequest,
     AuthenticationRequest
-} from "../contracts";
+} from "../http";
 
 export interface IAuthService {
     signIn(request: SignInRequest): Promise<ApiResult<AuthenticationResponse>>;

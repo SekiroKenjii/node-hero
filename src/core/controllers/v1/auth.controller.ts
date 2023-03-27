@@ -1,13 +1,14 @@
 import { Response, NextFunction } from "express";
-import { AuthenticationRequest, Request } from '../../interfaces/contracts';
+import {
+    AuthenticationResponse,
+    AuthenticationRequest,
+    Request,
+    SignInRequest,
+    SignUpRequest
+} from '../../interfaces/http';
 import { inject, injectable } from "inversify";
 import { Locator } from "../../../constants";
 import { ApiResult } from "../../../wrappers";
-import {
-    SignUpRequest,
-    AuthenticationResponse,
-    SignInRequest
-} from "../../interfaces/contracts";
 import { IAuthService } from "../../interfaces/services";
 import { BaseController } from "../base.controller";
 

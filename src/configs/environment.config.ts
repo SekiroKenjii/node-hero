@@ -13,6 +13,8 @@ const dev: EnvConfig = {
         apiVersion: parseInt(processEnv.API_VERSION || 'v1', 10)
     },
     db: {
+        user_name: processEnv.DEV_DB_USER || 'user',
+        password: processEnv.DEV_DB_PASSWORD || 'password',
         host: processEnv.DEV_DB_HOST || 'localhost',
         port: parseInt(processEnv.DEV_DB_PORT || '27017', 10),
         name: processEnv.DEV_DB_NAME || 'dbDev'
@@ -25,6 +27,8 @@ const prod: EnvConfig = {
         apiVersion: parseInt(processEnv.API_VERSION || 'v1', 10)
     },
     db: {
+        user_name: processEnv.PROD_DB_USER || 'user',
+        password: processEnv.PROD_DB_PASSWORD || 'password',
         host: processEnv.PROD_DB_HOST || 'localhost',
         port: parseInt(processEnv.PROD_DB_PORT || '27018', 10),
         name: processEnv.PROD_DB_NAME || 'dbProd'

@@ -4,6 +4,8 @@ export interface AppConfig {
 }
 
 export interface DbConfig {
+    user_name: string;
+    password: string;
     host: string;
     port: number;
     name: string;

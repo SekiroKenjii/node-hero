@@ -4,9 +4,9 @@ import { UpdateQuery } from 'mongoose';
 import {
     Key,
     KeyPair,
-    KeyResponse,
     TokenPair
 } from '../../interfaces/contracts';
+import { KeyResponse } from '../../interfaces/http';
 import { IKeyService } from '../../interfaces/services';
 import { Locator } from '../../../constants';
 import { IKeyRepository } from '../../interfaces/repositories';
@@ -100,12 +100,12 @@ export class KeyService implements IKeyService {
         }
 
         return {
-            userId: key.user.toString(),
-            privateKey: key.privateKey,
-            publicKey: key.publicKey,
-            accessToken: key.accessToken,
-            refreshToken: key.refreshToken,
-            oldRefreshTokens: key.oldRefreshTokens
+            userId: key.user_id.toString(),
+            privateKey: key.private_key,
+            publicKey: key.public_key,
+            accessToken: key.access_token,
+            refreshToken: key.refresh_token,
+            oldRefreshTokens: key.old_refresh_tokens
         } as KeyResponse
     }
 }

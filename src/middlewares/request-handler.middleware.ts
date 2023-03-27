@@ -1,5 +1,5 @@
 import { Response, NextFunction } from "express";
-import { Request } from '../core/interfaces/contracts';
+import { Request } from '../core/interfaces/http';
 import { Header } from "../constants";
 import { UnauthorizedException } from "../core/exceptions";
 import { ITokenService } from "../core/interfaces/services";
@@ -40,8 +40,8 @@ export default class RequestHandlerMiddleware {
         }
 
         try {
-            let authRequest = await this._tokenService.verifyAccessToken(userId, accessToken);
-            authRequest = await this._tokenService.verifyRefreshToken(userId, refreshToken);
+            await this._tokenService.verifyAccessToken(userId, accessToken);
+            const authRequest = await this._tokenService.verifyRefreshToken(userId, refreshToken);
 
             req.authentication = authRequest;
             req.authentication.accessToken = accessToken;

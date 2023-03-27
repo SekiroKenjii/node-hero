@@ -25,6 +25,8 @@ export const Locator = {
 
     // Model
     APIKEY_MODEL: Symbol('ApiKeyModel'),
+    ROLE_MODEL: Symbol('RoleModel'),
+    ROLECLAIM_MODEL: Symbol('RoleClaimModel'),
     USER_MODEL: Symbol('UserModel'),
     KEY_MODEL: Symbol('KeyModel'),
 
@@ -114,4 +116,11 @@ export const StatusCode = {
 export const AuthType = {
     SIGN_IN: 'SignIn',
     SIGN_UP: 'SignUp'
+}
+
+export const DefaultImage = {
+    MALE_AVATAR: 'https://res.cloudinary.com/dglgzh0aj/image/upload/v1638705521/TGProV3/users/default/default_male_photo.jpg',
+    MALE_AVATAR_ID: 'TGProV3/users/default/default_male_photo',
+    FEMALE_AVATAR: 'https://res.cloudinary.com/dglgzh0aj/image/upload/v1637290486/TGProV3/users/default/default_female_photo.jpg',
+    FEMALE_AVATAR_ID: 'TGProV3/users/default/default_female_photo'
 }

@@ -1,16 +1,16 @@
 import { inject, injectable } from "inversify";
+import { User, TokenPair } from '../../interfaces/contracts'
 import {
     SignUpRequest,
     AuthenticationResponse,
     SignInRequest,
-    User,
     AuthenticationRequest,
     UserResponse,
-    TokenPair
-} from '../../interfaces/contracts'
+} from '../../interfaces/http';
 import { ApiResult } from '../../../wrappers';
 import {
     AuthType,
+    DefaultImage,
     Locator,
     Role,
     StatusCode
@@ -76,14 +76,16 @@ export class AuthService implements IAuthService {
         const passwordHash = await hashPassword(request.password);
 
         const user = await this._userRepository.create({
-            fullname: request.fullname,
+            full_name: request.fullname,
             email: request.email,
             password: passwordHash,
-            roles: [Role.BASIC]
+            phone_number: request.phoneNumber,
+            avatar_id: DefaultImage.MALE_AVATAR_ID,
+            avatar_url: DefaultImage.MALE_AVATAR
         });
 
         if (!user) {
-            console.log('AuthService.signUp() => Line [78 -> 83]: Failed to create new User Document!');
+            console.log('AuthService.signUp() => Line [78 -> 85]: Failed to create new User Document!');
 
             throw new ServerException({
                 message: 'Failed to register new account.'
@@ -110,7 +112,7 @@ export class AuthService implements IAuthService {
         const keyPair = await this._keyService.generateRandomKeyPair();
 
         if (!keyPair) {
-            console.log('AuthService.authenticateUser() => Line 110: Failed to generate random key pair!');
+            console.log('AuthService.authenticateUser() => Line 112: Failed to generate random key pair!');
 
             throw new ServerException({
                 message: errorMessage
@@ -121,14 +123,14 @@ export class AuthService implements IAuthService {
             payload: {
                 userId: userId,
                 email: user.email,
-                fullname: user.fullname
+                full_name: user.full_name
             },
             publicKey: keyPair.publicKey,
             privateKey: keyPair.privateKey
         });
 
         if (!tokenPair) {
-            console.log('AuthService.authenticateUser() => Line [120 -> 128]: Failed to generate token pair!');
+            console.log('AuthService.authenticateUser() => Line [122 -> 130]: Failed to generate token pair!');
 
             throw new ServerException({
                 message: errorMessage
@@ -138,7 +140,7 @@ export class AuthService implements IAuthService {
         const saveUserKey = await this._keyService.saveUserKey(userId, keyPair, tokenPair);
 
         if (!saveUserKey) {
-            console.log('AuthService.authenticateUser() => Line 138: Failed to save user key!');
+            console.log('AuthService.authenticateUser() => Line 140: Failed to save user key!');
 
             throw new ServerException({
                 message: errorMessage
@@ -146,7 +148,7 @@ export class AuthService implements IAuthService {
         }
 
         const responseData: AuthenticationResponse = {
-            user: pickFields(user, ['_id', 'fullname', 'email']),
+            user: pickFields(user, ['_id', 'full_name', 'email']),
             token: tokenPair
         };
 
@@ -196,20 +198,20 @@ export class AuthService implements IAuthService {
             });
         }
 
-        const userResponse: UserResponse = pickFields(user, ['_id', 'fullname', 'email']);
+        const userResponse: UserResponse = pickFields(user, ['_id', 'full_name', 'email']);
 
         const tokenPair = await this._tokenService.generateJWT({
             payload: {
                 userId: userResponse._id!.toString(),
                 email: userResponse.email,
-                fullname: userResponse.fullname
+                full_name: userResponse.full_name
             },
             publicKey: publicKey,
             privateKey: privateKey
         });
 
         if (!tokenPair) {
-            console.log('AuthService.refreshUserToken() => Line [201 -> 209]: Failed to generate token pair!');
+            console.log('AuthService.refreshUserToken() => Line [203 -> 211]: Failed to generate token pair!');
 
             throw new ServerException({
                 message: 'Failed to refresh user token!'
@@ -224,7 +226,7 @@ export class AuthService implements IAuthService {
         const updateRefreshToken = await this._keyService.updateUserKeyToken(userId, oldTokenPair, tokenPair);
 
         if (!updateRefreshToken) {
-            console.log('AuthService.refreshUserToken() => Line 224: Failed to update user key!');
+            console.log('AuthService.refreshUserToken() => Line 226: Failed to update user key!');
 
             throw new ServerException({
                 message: 'Failed to refresh user token!'

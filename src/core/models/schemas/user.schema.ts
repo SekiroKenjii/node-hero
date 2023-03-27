@@ -3,7 +3,7 @@ import { CollectionName } from "../../../constants";
 import { User } from "../../interfaces/contracts";
 
 export const userSchema: Schema<User> = new Schema<User>({
-    fullname: {
+    full_name: {
         type: String,
         require: true,
         maxLength: 150
@@ -14,23 +14,35 @@ export const userSchema: Schema<User> = new Schema<User>({
         require: true,
         trim: true,
         index: true,
+        maxLength: 320
+    },
+    phone_number: {
+        type: String,
+        unique: true,
+        require: true
     },
     password: {
         type: String,
         require: true
     },
-    status: {
+    avatar_id: {
         type: String,
-        enum: ['active', 'inactive'],
-        default: 'inactive'
+        require: true,
+        maxLength: 250
     },
-    verify: {
+    avatar_url: {
+        type: String,
+        require: true,
+        maxLength: 255
+    },
+    gender: {
+        type: String,
+        enum: ['undefined ', 'male', 'female'],
+        default: 'undefined'
+    },
+    is_active: {
         type: Schema.Types.Boolean,
         default: false
-    },
-    roles: {
-        type: [String],
-        default: []
     }
 }, {
     timestamps: true,

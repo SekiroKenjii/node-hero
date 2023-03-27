@@ -1,9 +1,9 @@
-import { TokenPair } from "./pair.interface";
+import { TokenPair } from "../contracts/pair.interface";
 
 export interface UserResponse {
     _id?: string;
     email: string;
-    fullname: string;
+    full_name: string;
 }
 
 export interface AuthenticationResponse {

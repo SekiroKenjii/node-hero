@@ -22,6 +22,7 @@ export interface Request extends ExpressRequest {
 export interface SignUpRequest {
     fullname: string;
     email: string;
+    phoneNumber: string;
     password: string;
 }
 

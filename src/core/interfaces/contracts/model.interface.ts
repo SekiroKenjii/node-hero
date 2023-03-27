@@ -9,19 +9,32 @@ export interface ApiKey extends BaseModel {
 }
 
 export interface Key extends BaseModel {
-    user: ObjectId;
-    publicKey: string;
-    privateKey: string;
-    oldRefreshTokens: string[];
-    accessToken: string;
-    refreshToken: string;
+    user_id: ObjectId;
+    public_key: string;
+    private_key: string;
+    old_refresh_tokens: string[];
+    access_token: string;
+    refresh_token: string;
+}
+
+export interface Role extends BaseModel {
+    name: string;
+    description: string;
+}
+
+export interface RoleClaim extends BaseModel {
+    role_id: ObjectId;
+    user_id: ObjectId;
+    permissions: string[];
 }
 
 export interface User extends BaseModel {
-    fullname: string;
+    full_name: string;
     email: string;
+    phone_number: string;
     password: string;
-    status: string;
-    verify: boolean;
-    roles: string[];
+    avatar_id: string;
+    avatar_url: string;
+    gender: string;
+    is_active: boolean;
 }

@@ -5,17 +5,21 @@ import {
     Key,
     KeyPair,
     TokenPair
-} from '../../interfaces/contracts';
-import { KeyResponse } from '../../interfaces/http';
-import { IKeyService } from '../../interfaces/services';
-import { Locator } from '../../../constants';
-import { IKeyRepository } from '../../interfaces/repositories';
+} from '../interfaces/contracts';
+import { KeyResponse } from '../interfaces/http';
+import { IKeyService } from '../interfaces/services';
+import { Locator } from '../../constants';
+import { IKeyRepository } from '../interfaces/repositories';
 
 @injectable()
 export class KeyService implements IKeyService {
     constructor(
-        @inject(Locator.KEY_REPOSITORY) private readonly _keyRepository: IKeyRepository
+        @inject(Locator.KEY_REPOSITORY) private readonly _repository: IKeyRepository
     ) { }
+
+    repository(): IKeyRepository {
+        return this._repository;
+    }
 
     async generateRandomKeyPair(): Promise<KeyPair | null> {
         const publicKeyString = await crypto.randomBytes(64).toString('hex');
@@ -45,14 +49,14 @@ export class KeyService implements IKeyService {
 
         const update: UpdateQuery<Key> = {
             user: userId,
-            publicKey: publicKey,
-            privateKey: privateKey,
-            oldRefreshTokens: [],
-            accessToken: tokenPair.accessToken,
-            refreshToken: tokenPair.refreshToken,
+            public_key: publicKey,
+            private_key: privateKey,
+            old_refresh_tokens: [],
+            access_token: tokenPair.accessToken,
+            refresh_token: tokenPair.refreshToken,
         };
 
-        const result = await this._keyRepository.update(userId, update);
+        const result = await this._repository.update(userId, update);
 
         if (!result) {
             console.log('Failed to save user key.');
@@ -64,14 +68,14 @@ export class KeyService implements IKeyService {
 
     async updateUserKeyToken(userId: string, oldTokenPair: TokenPair, tokenPair: TokenPair): Promise<boolean> {
         const update: UpdateQuery<Key> = {
-            accessToken: tokenPair.accessToken,
-            refreshToken: tokenPair.refreshToken,
+            access_token: tokenPair.accessToken,
+            refresh_token: tokenPair.refreshToken,
             $addToSet: {
-                oldRefreshTokens: oldTokenPair.refreshToken
+                old_refresh_tokens: oldTokenPair.refreshToken
             }
         };
 
-        const result = await this._keyRepository.update(userId, update);
+        const result = await this._repository.update(userId, update);
 
         if (!result) {
             console.log('Failed to save user key.');
@@ -93,7 +97,7 @@ export class KeyService implements IKeyService {
     }
 
     async getUserKeyByUserId(userId: string): Promise<KeyResponse | null> {
-        const key = await this._keyRepository.findByUserId(userId);
+        const key = await this._repository.findByUserId(userId);
 
         if (!key) {
             return null;

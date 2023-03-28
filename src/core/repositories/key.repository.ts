@@ -8,12 +8,12 @@ import { Model } from "mongoose";
 @injectable()
 export class KeyRepository extends BaseRepository<Key> implements IKeyRepository {
     constructor(
-        @inject(Locator.KEY_MODEL) private readonly _keyModel: Model<Key>
+        @inject(Locator.KEY_MODEL) readonly keyModel: Model<Key>
     ) {
-        super(_keyModel);
+        super(keyModel);
     }
 
     async findByUserId(userId: string): Promise<Key | null> {
-        return await this._keyModel.findOne({ user: userId }).lean();
+        return await this.findFirst({ user: userId });
     }
 }

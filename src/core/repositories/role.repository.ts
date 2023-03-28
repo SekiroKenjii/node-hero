@@ -8,8 +8,12 @@ import { Locator } from "../../constants";
 @injectable()
 export class RoleRepository extends BaseRepository<Role> implements IRoleRepository {
     constructor(
-        @inject(Locator.ROLE_MODEL) private readonly _roleModel: Model<Role>
+        @inject(Locator.ROLE_MODEL) readonly roleModel: Model<Role>
     ) {
-        super(_roleModel);
+        super(roleModel);
+    }
+
+    async findByName(roleName: string): Promise<Role | null> {
+        return await this.findFirst({ name: roleName });
     }
 }

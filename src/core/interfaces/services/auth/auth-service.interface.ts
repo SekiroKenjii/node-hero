@@ -1,10 +1,10 @@
-import { ApiResult } from "../../../wrappers";
+import { ApiResult } from "../../../../wrappers";
 import {
     SignUpRequest,
     AuthenticationResponse,
     SignInRequest,
     AuthenticationRequest
-} from "../http";
+} from "../../http";
 
 export interface IAuthService {
     signIn(request: SignInRequest): Promise<ApiResult<AuthenticationResponse>>;

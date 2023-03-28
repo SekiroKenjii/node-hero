@@ -2,8 +2,12 @@ import crypto from 'node:crypto'
 import { inject, injectable } from 'inversify';
 import mongoose, { Model } from 'mongoose';
 import config from '../configs/environment.config'
-import { Locator } from '../constants';
-import { ApiKey, DbConfig, Role } from '../core/interfaces/contracts'
+import { Locator, Role as RoleConstants } from '../constants';
+import {
+    ApiKey,
+    DbConfig,
+    Role
+} from '../core/interfaces/contracts'
 
 @injectable()
 export class MongoDb {
@@ -63,9 +67,9 @@ export class MongoDb {
             }
 
             await this._roleModel.insertMany([
-                { name: 'Admin', description: '*.*' },
-                { name: 'Moderator', description: 'CRU(D)' },
-                { name: 'Basic', description: 'Restricted role' }
+                { name: RoleConstants.ADMIN, description: '*.*' },
+                { name: RoleConstants.MODERATOR, description: 'CRU(D)' },
+                { name: RoleConstants.BASIC, description: 'Restricted role' }
             ])
 
             console.log('Role seeded!');

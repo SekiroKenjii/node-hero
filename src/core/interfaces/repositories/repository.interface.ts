@@ -27,6 +27,15 @@ export interface IRepository<T> {
     find(filter: FilterQuery<T>): Promise<T[]>;
 
     /**
+     * Retrieve a document from specified (T) table by custom filter condition.
+     *
+     * @param filter - Filter query to select a document that match the query.
+     *
+     * @returns A document that match the query otherwise Null.
+     */
+    findFirst(filter: FilterQuery<T>): Promise<T | null>;
+
+    /**
      * Create a new document for specified (T) table.
      *
      * @param entity - A requested document.

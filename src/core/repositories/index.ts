@@ -1,4 +1,6 @@
 export * from './api-key.repository'
 export * from './base.repository'
 export * from './key.repository'
+export * from './role.repository'
+export * from './role-claim.repository'
 export * from './user.repository'

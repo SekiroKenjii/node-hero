@@ -37,7 +37,7 @@ export const userSchema: Schema<User> = new Schema<User>({
     },
     gender: {
         type: String,
-        enum: ['undefined ', 'male', 'female'],
+        enum: ['undefined', 'male', 'female'],
         default: 'undefined'
     },
     is_active: {

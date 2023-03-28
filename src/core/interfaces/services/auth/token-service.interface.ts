@@ -1,5 +1,5 @@
-import { TokenPair, Token } from "../contracts";
-import { AuthenticationRequest } from '../http';
+import { TokenPair, Token } from "../../contracts";
+import { AuthenticationRequest } from '../../http';
 
 export interface ITokenService {
     generateJWT(request: Token): Promise<TokenPair | null>;

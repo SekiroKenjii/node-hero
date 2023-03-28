@@ -17,15 +17,19 @@ export class BaseRepository<T extends BaseModel> implements IRepository<T> {
     }
 
     async findAll(): Promise<T[]> {
-        return await this._model.find().exec();
+        return await this._model.find().lean();
     }
 
     async findById(id: string): Promise<T | null> {
-        return await this._model.findById(id).exec();
+        return await this._model.findById(id).lean();
     }
 
     async find(filter: FilterQuery<T>): Promise<T[]> {
-        return await this._model.find(filter).exec();
+        return await this._model.find(filter).lean();
+    }
+
+    async findFirst(filter: FilterQuery<T>): Promise<T | null> {
+        return await this._model.findOne(filter).lean();
     }
 
     async create(entity: Partial<T>): Promise<T> {

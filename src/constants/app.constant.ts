@@ -19,12 +19,17 @@ export const Locator = {
     BASE_REPOSITORY: Symbol('BaseRepository'),
     APIKEY_REPOSITORY: Symbol('ApiKeyRepository'),
     KEY_REPOSITORY: Symbol('KeyRepository'),
+    ROLE_REPOSITORY: Symbol('RoleRepository'),
+    ROLECLAIM_REPOSITORY: Symbol('RoleClaimRepository'),
     USER_REPOSITORY: Symbol('UserRepository'),
 
     // Service
     AUTH_SERVICE: Symbol('AuthService'),
     KEY_SERVICE: Symbol('KeyService'),
     TOKEN_SERVICE: Symbol('TokenService'),
+    ROLE_SERVICE: Symbol('RoleService'),
+    ROLECLAIM_SERVICE: Symbol('RoleClaimService'),
+    USER_SERVICE: Symbol('UserService'),
 
     // Model
     APIKEY_MODEL: Symbol('ApiKeyModel'),
